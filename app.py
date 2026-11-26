@@ -5,10 +5,13 @@ import os
 from functools import wraps
 
 app = Flask(__name__)
-app.secret_key = "smart_attendance_demo_secret_2026"
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "smart_attendance_demo_secret_2026"
+)
 
-USERNAME = "admin"
-PASSWORD = "admin123"
+USERNAME = os.environ.get("APP_USERNAME", "admin")
+PASSWORD = os.environ.get("APP_PASSWORD", "admin123")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "attendance.db")
@@ -17,6 +20,7 @@ DB_PATH = os.path.join(BASE_DIR, "attendance.db")
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
     return conn
 
 
@@ -47,6 +51,10 @@ def create_table():
     conn.close()
 
 
+# Create database tables when Gunicorn starts the app
+create_table()
+
+
 def login_required(function):
     @wraps(function)
     def wrapper(*args, **kwargs):
@@ -56,7 +64,6 @@ def login_required(function):
     return wrapper
 
 
-# PWA SERVICE WORKER ROUTE
 @app.route("/service-worker.js")
 def service_worker():
     response = send_from_directory(
@@ -362,5 +369,4 @@ def date_report():
 
 
 if __name__ == "__main__":
-    create_table()
     app.run(host="0.0.0.0", port=5000, debug=False)
