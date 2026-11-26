@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#174a7e">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Smart Attendance Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #eef4ff;
+            color: #24344d;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        header {
+            background: #174a7e;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .logout {
+            background: white;
+            color: #174a7e;
+            padding: 10px 16px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .welcome {
+            margin: 25px 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px 12px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        .card h2 {
+            color: #1769aa;
+            margin: 8px 0;
+            font-size: 28px;
+        }
+
+        .actions {
+            margin-top: 30px;
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .actions a {
+            display: block;
+            background: #1769aa;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .actions a:hover {
+            background: #0d4f87;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 16px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .card {
+                padding: 18px 8px;
+            }
+
+            .card h2 {
+                font-size: 23px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>🎓 Smart Attendance</h1>
+        <a href="/logout" class="logout">Logout</a>
+    </header>
+
+    <div class="welcome">
+        <h2>Welcome to Dashboard 👋</h2>
+        <p>Manage your student attendance easily.</p>
+    </div>
+
+    <div class="stats">
+
+        <div class="card">
+            <p>Total Students</p>
+            <h2>{{ total_students }}</h2>
+        </div>
+
+        <div class="card">
+            <p>Present</p>
+            <h2>{{ present_count }}</h2>
+        </div>
+
+        <div class="card">
+            <p>Absent</p>
+            <h2>{{ absent_count }}</h2>
+        </div>
+
+        <div class="card">
+            <p>Attendance</p>
+            <h2>{{ percentage }}%</h2>
+        </div>
+
+    </div>
+
+    <div class="actions">
+        <h2>Quick Actions</h2>
+
+        <a href="/add_student">➕ Add Student</a>
+        <a href="/students">👨‍🎓 View Students</a>
+        <a href="/attendance">📝 Mark Attendance</a>
+        <a href="/view_attendance">📋 View Attendance Records</a>
+        <a href="/date_report">📅 Date-wise Attendance Report</a>
+    </div>
+
+</div>
+
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js")
+            .then(() => console.log("Service Worker Registered"))
+            .catch(error => console.log("Service Worker Error:", error));
+    }
+</script>
+
+</body>
+</html>

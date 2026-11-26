@@ -1,0 +1,107 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #153e75, #4285d4);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-container {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 35px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+}
+
+.logo {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    color: #173e75;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    display: block;
+    color: #173e75;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 18px;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2869bd;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #1d5da8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #123e75;
+}
+
+.error {
+    color: #d93025;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.footer {
+    color: #999;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 22px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
