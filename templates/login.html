@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Attendance - Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#174a7e">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1769aa, #83b8ee);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            width: 100%;
+            max-width: 380px;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #00000030;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1769aa;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #1769aa;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d4f87;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <h1>Smart Attendance</h1>
+        <p>Welcome! Please Login</p>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form action="/login" method="POST">
+
+            <input type="text" name="username"
+                   placeholder="Enter Username" required>
+
+            <input type="password" name="password"
+                   placeholder="Enter Password" required>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <div class="footer">
+            Smart Attendance Management System
+        </div>
+
+    </div>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js");
+        }
+    </script>
+
+</body>
+</html>

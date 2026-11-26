@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Date-wise Attendance Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #f0f4ff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        h1 {
+            color: #174a7e;
+        }
+
+        .back {
+            background: #1769aa;
+            color: white;
+            padding: 11px 17px;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #00000012;
+        }
+
+        label {
+            display: block;
+            color: #174a7e;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccd6e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            background: #1769aa;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .summary {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .summary div {
+            flex: 1;
+            min-width: 130px;
+            padding: 18px;
+            background: #eef4ff;
+            border-radius: 10px;
+            text-align: center;
+            color: #174a7e;
+            font-weight: bold;
+        }
+
+        .table-box {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th {
+            background: #1769aa;
+            color: white;
+            padding: 14px;
+        }
+
+        td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+
+        .absent {
+            color: red;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 20px;
+            color: #66788a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>📅 Date-wise Attendance Report</h1>
+        <a href="/dashboard" class="back">← Dashboard</a>
+    </div>
+
+    <div class="box">
+
+        <form action="/date_report" method="GET">
+
+            <label>Select Date</label>
+
+            <input
+                type="date"
+                name="date"
+                value="{{ selected_date }}"
+                required
+            >
+
+            <button type="submit">View Report</button>
+
+        </form>
+
+        {% if selected_date %}
+
+        <div class="summary">
+
+            <div>
+                Total Records
+                <h2>{{ records|length }}</h2>
+            </div>
+
+            <div>
+                Present
+                <h2>{{ present_count }}</h2>
+            </div>
+
+            <div>
+                Absent
+                <h2>{{ absent_count }}</h2>
+            </div>
+
+        </div>
+
+        <div class="table-box">
+
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Roll Number</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.name }}</td>
+                    <td>{{ record.roll }}</td>
+                    <td>{{ record.class_name }}</td>
+                    <td>{{ record.date }}</td>
+                    <td>
+                        {% if record.status == "Present" %}
+                            <span class="present">Present</span>
+                        {% else %}
+                            <span class="absent">Absent</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="empty">
+                        No attendance records found for this date.
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

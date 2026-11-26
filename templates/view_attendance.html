@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Attendance Records</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #f0f4ff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        h1 {
+            color: #174a7e;
+        }
+
+        .back {
+            background: #1769aa;
+            color: white;
+            padding: 11px 17px;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .table-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #00000012;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th {
+            background: #1769aa;
+            color: white;
+            padding: 15px;
+        }
+
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+
+        .absent {
+            color: red;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            color: #66788a;
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>📋 View Attendance Records</h1>
+        <a href="/dashboard" class="back">← Dashboard</a>
+    </div>
+
+    <div class="table-box">
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Roll Number</th>
+                <th>Class</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+
+            {% for record in records %}
+            <tr>
+                <td>{{ record.id }}</td>
+                <td>{{ record.name }}</td>
+                <td>{{ record.roll }}</td>
+                <td>{{ record.class_name }}</td>
+                <td>{{ record.date }}</td>
+                <td>
+                    {% if record.status == "Present" %}
+                        <span class="present">Present</span>
+                    {% else %}
+                        <span class="absent">Absent</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="empty">
+                    No attendance records found.
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

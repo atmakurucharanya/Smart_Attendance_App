@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Students</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #f0f4ff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            color: #174a7e;
+        }
+
+        .back {
+            background: #1769aa;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .table-box {
+            background: white;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px #00000010;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 550px;
+        }
+
+        th {
+            background: #1769aa;
+            color: white;
+            padding: 15px;
+        }
+
+        td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f0f6ff;
+        }
+
+        .edit {
+            background: #198754;
+            color: white;
+            padding: 8px 13px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .delete {
+            background: #dc3545;
+            color: white;
+            padding: 8px 13px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .empty {
+            text-align: center;
+            color: #777;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>👨‍🎓 Student Details</h1>
+        <a href="/dashboard" class="back">← Dashboard</a>
+    </div>
+
+    <div class="table-box">
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Roll Number</th>
+                <th>Class</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.roll }}</td>
+                <td>{{ student.class_name }}</td>
+                <td>
+                    <a href="/edit_student/{{ student.id }}" class="edit">Edit</a>
+
+                    <form action="/delete_student/{{ student.id }}"
+                          method="POST"
+                          style="display:inline;"
+                          onsubmit="return confirm('Are you sure you want to delete this student?');">
+
+                        <button type="submit" class="delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" class="empty">No students found.</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

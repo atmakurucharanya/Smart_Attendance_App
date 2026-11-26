@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mark Attendance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #f0f4ff;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        h1 {
+            color: #174a7e;
+        }
+
+        .back {
+            background: #1769aa;
+            color: white;
+            padding: 11px 17px;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .form-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #00000012;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            color: #174a7e;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccd6e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #1769aa;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            background: #1769aa;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d4f87;
+        }
+
+        .note {
+            color: #66788a;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .count {
+            color: #1769aa;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>📝 Mark Attendance</h1>
+        <a href="/dashboard" class="back">← Dashboard</a>
+    </div>
+
+    <div class="form-box">
+
+        <form action="/mark_attendance" method="POST">
+
+            <label>Select Student</label>
+
+            <select name="student_id" required>
+                <option value="">Choose Student</option>
+
+                {% for student in students %}
+                <option value="{{ student.id }}">
+                    {{ student.name }} - {{ student.roll }}
+                </option>
+                {% else %}
+                <option value="" disabled>No students found</option>
+                {% endfor %}
+
+            </select>
+
+            <p class="count">Total Students: {{ students|length }}</p>
+
+            <label>Select Date</label>
+            <input type="date" name="date" required>
+
+            <label>Attendance Status</label>
+
+            <select name="status" required>
+                <option value="">Choose Status</option>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+            </select>
+
+            <button type="submit">Save Attendance</button>
+
+        </form>
+
+        <p class="note">Select student, date and attendance status.</p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
